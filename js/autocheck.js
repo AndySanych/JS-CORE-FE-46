@@ -688,10 +688,10 @@
 //  же строку, но в нижнем регистре.Присвой переменной normalizedInput выражение
 //   создания строки в нижнем регистре из параметра input.
 
-function normalizeInput(input) {
-  const normalizedInput = input.toLowerCase()
-console.log(normalizeInput)
-}
+// function normalizeInput(input) {
+//   const normalizedInput = input.toLowerCase()
+// console.log(normalizeInput)
+// }
 
 
 // ЗАДАЧА 35/36
