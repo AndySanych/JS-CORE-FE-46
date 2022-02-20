@@ -206,7 +206,7 @@
 // console.log(unshiftElem) // exampleArray.length - новая длинна массива 
 // console.log(exampleArray) // [0, 0, 1, 1, 2, 3, 4, 4]
 
-// // добавить можно любое кол-во элементов .unshift(5, 5,...)
+// // добавить можно любое кол-во элементов .push(5, 5,...)
 // const pushElem = exampleArray.push(5, 5) // добавит значение (в данном случае 5) в конец массива
 // console.log(pushElem) // exampleArray.length - новая длинна массива
 // console.log(exampleArray) // [0, 0, 1, 1, 2, 3, 4, 4, 5, 5]

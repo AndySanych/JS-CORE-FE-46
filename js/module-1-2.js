@@ -242,16 +242,17 @@
 //   старт     условие до   шаг итерации
 //                       i++
 //                       i = i + 1
-for (let i = 1; i < 10; i += 1) {
-  if (i % 2 === 0) {
-    console.log(`continue${i}`)
-    continue
-  }
-}
+// for (let i = 1; i < 10; i += 1) {
+//   if (i % 2 === 0) {
+//     console.log(`continue${i}`)
+//     continue
+//   }
+// }
 
-for (let i = 1; i < 10; i += 1) {
-  if (i % 2 === 0) {
-    console.log(`break${i}`)
-    break
-  }
-}
+// for (let i = 1; i < 10; i += 1) {
+//   if (i % 2 === 0) {
+//     console.log(`break${i}`)
+//     break
+//   }
+// }
+
