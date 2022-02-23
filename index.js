@@ -2,4 +2,5 @@
 // import './js/module-1-2.js'
 // import './js/autocheck.js'
 // import './js/module-2-1-arrays.js'
-import './js/module-2-2-functions.js'
+// import './js/module-2-2-functions.js'
+import './js/module-3-1.js'
