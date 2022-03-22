@@ -249,3 +249,5 @@ console.log(thirdPiece)
 
 const fullArray = firstPiece.concat(secondPiece, thirdPiece)  
 console.log(fullArray)
+
+
