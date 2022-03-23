@@ -83,7 +83,7 @@
   
 //   if (!isRecipientAvailable) {
 //     console.log(`Абонент ${recipient}, недоступен, оставте сообщение.`)
-//     // Логика активации автоответчика  
+//     // Логика активации автоответчика
 //   } else {
 //     console.log(`Соединяем с ${recipient}, ожидайте...`)
 //     // Логика принятия звонка
@@ -167,31 +167,276 @@
 как аргумент.
 */
 
-function printValue(value) {
-  console.log(value)
-}
+// function printValue(value) {
+//   console.log(value)
+// }
 
-function prettyPrint(value) {
-  console.log('Logging value: ', value);
-}
+// function prettyPrint(value) {
+//   console.log('Logging value: ', value);
+// }
 
-function repeat(n, action) {
-  for (let i = 0; i < n; i += 1) {
-    action(i)
-  }
-}
+// function repeat(n, action) {
+//   for (let i = 0; i < n; i += 1) {
+//     action(i)
+//   }
+// }
 
 // Передаем printValue как callback-функцию
-repeat(3, printValue)
+// repeat(3, printValue)
 // 0
 // 1
 // 2
 
 // Передаем prettyPrint как callback-функцию
-repeat(3, prettyPrint)
+// repeat(3, prettyPrint)
 // Logging value: 0
 // Logging value: 1
 // Logging value: 2
+
+
+
+
+/////////////////// Метод forEach ///////////////////////////////
+
+/*Перебирающий метод массива который используется как замена циклов
+for и for...of при работе с коллекцией данных.
+*/
+
+// массив.forEach(function callback(element, index, array) {
+//    // Тело коллбек-функции
+// })
+
+
+/** Поэлементно перебирает массив.
+  * Вызызвает коллбек-функцию для каждого элемента массива.
+  * Ничего не возвращает.
+ 
+ Аргументы коллбек-функции это значение текущего элемента «element», 
+его индекс «index» и сам исходный массив «array». Объявлять можно только 
+те параметры которые нужны, чаще всего это элемент, главное не забывать 
+про их порядок.
+*/
+
+// const numbers = [5, 10, 15, 20, 25]
+
+// // Классический for
+// for (let i = 0; i < numbers.length; i += 1) {
+//   console.log(`Индекс ${i}, значение ${numbers[i]}`)
+// }
+
+// // Перебирающий forEach
+// numbers.forEach(function (number, index) {
+//   console.log(`Индекс ${index}, значение ${number}`)
+// })
+
+/*Единственным случаем, когда стоит использовать циклы for или for...of 
+для перебора массива, это задачи с прерыванием выполнения цикла. Прервать 
+выполнение метода forEach нельзя, он всегда перебирает массив до конца.
+*/
+
+
+//////////////////// EXAMPLES //////////////////////////////
+
+/*               ---    1   ---                       */
+// function calculateTotalPrice(orderedItems) {
+//   let totalPrice = 0
+
+//   // Классический for
+//    // for (let i = 0; i < orderedItems.length; i += 1) {
+//   //   console.log(`Индекс ${i}, значение ${orderedItems[i]}`);
+//   //   totalPrice += orderedItems[i]
+//   // }
+
+//   // Перебирающий forEach
+//   orderedItems.forEach(function (orderedItem, index) {
+//     console.log(`Индекс ${index}, значение ${orderedItem}`)
+//     totalPrice += orderedItem
+//   })
+ 
+//   return totalPrice
+// }
+// console.log(calculateTotalPrice([1, 2, 3]))
+
+
+/*               ---   2   ---                       */
+// function filterArray(numbers, value) {
+//   const filteredNumbers = []
+
+  // Классический for
+  // for (let i = 0; i < numbers.length; i += 1) {
+  //   if (numbers[i] > value) {
+  //     filteredNumbers.push(numbers[i])
+  //   }
+  // }
+
+  // Перебирающий forEach
+//   numbers.forEach(function (number, index) {
+//     console.log(`Индекс ${index}, значение ${number}`)
+
+//     if (number > value) {
+//       filteredNumbers.push(number)
+//     }
+//   })
+
+//   return filteredNumbers
+// }
+// console.log(filterArray([3, 5, 8, 12, 15], 9))
+
+
+/*                ---   3   ---                      */
+// function getCommonElements(firstArray, secondArray) {
+//   const commonElements = []
+  
+  // Классический for
+  // for (let i = 0; i < firstArray.length; i += 1) {
+  //   if (secondArray.includes(firstArray[i])) {
+  //     commonElements.push(firstArray[i]);
+  //   }
+  // }
+
+  // Перебирающий forEach
+  // firstArray.forEach(function (number) {
+  //   console.log(`значение ${number}`)
+  //   if (secondArray.includes(number)) {
+  //     commonElements.push(number)
+  //   }
+  // } )
+
+  // return commonElements
+  // Change code above this line
+// }
+// console.log(getCommonElements([1, 2, 3], [2, 4]))
+
+
+
+/////////////// ARROW FUNCTION (Стрелочные функции) //////////////
+
+/*Стрелочные функции имеют сокращённый, более лаконичный синтаксис, 
+что уменьшает объем кода, особенно когда функция маленькая или если 
+она используется как коллбек.
+ Все стрелки создаются как функциональное выражение, и если функция 
+ не анонимна, то она должна быть присвоена переменной.
+ */
+
+ // Обычное объявление функции
+// function classicAdd(a, b, c) {
+//    return a + b + c
+// }
+// console.log(classicAdd(2, 3, 5))
+
+// Тоже самое как стрелочная функция
+// const arrowAdd = (a, b, c) => {
+//   return a + b + c
+// }
+// console.log(arrowAdd(4, 3, 7))
+
+/*Ключевое слово «function» не используется, вместо этого сразу 
+идёт объявление параметров, за которыми следует символ => и тело функции.
+ Если параметров несколько, то они перечисляются через запятую в круглых 
+скобках, между знаками равно = и стрелкой =>.
+*/
+
+// const add = (a, b, c) => {
+//   return a * b * c
+// }
+// console.log(add(2, 2, 3))
+ 
+/*Если параметр один, его объявление может быть без круглых скобок.
+*/
+
+// const nowAdd = a => {
+//   return a / 2
+// }
+// console.log(nowAdd(14))
+
+/*Если параметров нет, то обязательно должны быть пустые круглые скобки.*/
+
+// const greet = () => {
+//   console.log('Hello!')
+// }
+// greet()
+
+
+////////////////// Неявный возврат //////////////////////////
+
+/*В стрелочной функции после символа => идёт её тело. Здесь может быть 
+два варианта: с фигурными скобками и без них.
+*/
+
+// const add = (a, b, c) => {
+//   console.log(a, b, c)
+//   return a + b + c
+// }
+
+/*Если фигурные скобки есть, и функция должна возвращать какое-то значение, 
+необходимо явно поставить return. Это называется явный возврат (explicit return). 
+ Такой синтаксис используется в том случае, если в теле функции нужно выполнить 
+ ещё какие-то инструкции кроме возврата значения.
+ */
+
+// const add = (a, b, c) => a + b + c
+// console.log(add(2, 2, 3))
+
+/*Если фигурных скобок нет, то возвращается результат выражения стоящего после =>.
+ Это называется неявный возврат (implicit return). В примере вернётся результат 
+выражения сложения параметров a, b и c.
+ Синтаксис неявного возврата сильно сокращает «шум» объявления функции с телом 
+и возвращаемым выражением, но подходит только в случае когда в теле функции не 
+нужно выполнять никаких дополнительных инструкций кроме возврата значения.
+*/
+
+// До
+// function classicAdd(a, b, c) {
+//   return a + b + c
+// }
+// console.log(classicAdd(2, 5, 3))
+
+// После
+// const add = (a, b, c) => a + b + c
+// console.log(add(7, 5, 3))
+ 
+
+///////////////// EXAMPLES /////////////////////
+
+/*               ---   1  ---                 */
+
+// До
+//  function calculateTotalPrice(quantity, pricePerItem) {
+//   return quantity * pricePerItem
+// }
+// console.log(calculateTotalPrice(3, 4))
+
+// После
+// const calculateTotalPrice = (quantity, pricePerItem) => {
+//   return quantity * pricePerItem
+// }
+// console.log(calculateTotalPrice(2, 4))
+
+// Или
+// const calculateTotalPrice = (quantity, pricePerItem) => quantity * pricePerItem
+// console.log(calculateTotalPrice(5, 5))
+
+
+/////////////////// Псевдомассив «arguments» /////////////////
+
+/*У стрелочных функций нет локальной переменной «arguments», содержащей все аргументы. 
+ Если необходимо собрать все аргументы в массив, используется операция «rest».
+ */
+
+const add = (...args) => {
+   console.log(args)
+}
+ add(1, 2, 3) // [1, 2, 3]
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -298,6 +543,16 @@ repeat(3, prettyPrint)
 // }
 // const r3 = filter(fruits, getFruitsWithQuantity)
 // console.log(r3)
+
+
+
+
+
+
+
+
+
+
 
 
 /* Функция результатом своей работы может возвращать другую функцию.
