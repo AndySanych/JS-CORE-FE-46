@@ -423,12 +423,191 @@ for и for...of при работе с коллекцией данных.
  Если необходимо собрать все аргументы в массив, используется операция «rest».
  */
 
-const add = (...args) => {
-   console.log(args)
-}
- add(1, 2, 3) // [1, 2, 3]
+// const add = (...args) => {
+//    console.log(args)
+// }
+// add(1, 2, 3) // [1, 2, 3]
+ 
 
 
+////////////////////// Стрелочные функции как коллбеки /////////////////////
+
+/*Анонимные стрелочные функции отлично подходят как коллбеки для перебирающих методов массива 
+из-за более краткого синтаксиса объявления, особенно если не нужно тело функции.
+*/
+
+// const numbers = [5, 10, 15, 20, 25]
+
+// Объявление функции
+// numbers.forEach(function (number, index) {
+//   console.log(`Индекс ${index}, значение ${number}`)
+// })
+
+// Анонимная стрелочная функция
+// numbers.forEach((number, index) => {
+//   console.log(`Индекс ${index}, значение ${number}`)
+// })
+
+/*Стрелочную коллбек-функцию также можно объявлять отдельно и передавать на неё ссылку. 
+ Это стоит делать если одна функция используется в нескольких местах программы или если 
+она громоздкая.
+*/
+
+// const numbers = [3, 4, 7, 2, 1]
+
+// const logMessage = (number, index) => {
+//   console.log(`Индекс ${index}, значение ${number}`)
+// }
+// numbers.forEach(logMessage)
+
+
+
+////////////////////// EXAMPLES //////////////////////
+
+/*                     ---  1  ---                  */
+// function calculateTotalPrice(orderedItems) {
+//   let totalPrice = 0;
+
+//   orderedItems.forEach(function (item) {
+//     totalPrice += item;
+//   });
+
+//   return totalPrice;
+// }
+// console.log(calculateTotalPrice([2, 2, 3]))
+
+/*Выполни рефакторинг функции calculateTotalPrice(orderedItems) заменив её объявление 
+на стрелочную функцию. Замени коллбек-функцию передаваемую в метод forEach() на стрелочную функцию.
+*/
+
+// const calculateTotalPrice = orderedItems => {
+//   let totalPrice = 0
+//   orderedItems.forEach((item) => {
+//    totalPrice += item;
+//   })
+//   return totalPrice
+// }
+// console.log(calculateTotalPrice([2, 2, 3]))
+
+
+/*                    ---  2  ---                 */
+
+// function filterArray(numbers, value) {
+//   const filteredNumbers = [];
+
+//   numbers.forEach(function (number) {
+//     if (number > value) {
+//       filteredNumbers.push(number);
+//     }
+//   });
+
+//   return filteredNumbers;
+// }
+// console.log(filterArray([1, 3, 7, 9], 5))
+
+/*Замени объявление функции filterArray() и коллбек для метода forEach() на стрелочные функции.
+*/
+
+// const filterArray = (numbers, value) => {
+//   const filteredNumbers = []
+
+//   numbers.forEach((number) => {
+//     if (number > value) {
+//       filteredNumbers.push(number)
+//     }
+//   })
+
+//   return filteredNumbers
+// }
+// console.log(filterArray([1, 3, 7, 9], 5))
+
+
+/*                   ---  3  ---             */
+
+// function getCommonElements(firstArray, secondArray) {
+//   const commonElements = [];
+
+//   firstArray.forEach(function (element) {
+//     if (secondArray.includes(element)) {
+//       commonElements.push(element);
+//     }
+//   });
+
+//   return commonElements;
+// }
+// console.log(getCommonElements([3, 6, 7, 2, 1], [7, 5, 8, 1]));
+
+
+/*Замени объявление функции getCommonElements() и коллбек для метода forEach() на стрелочные функции.
+*/
+
+// const getCommonElements = (firstArray, secondArray) => {
+//   const commonElements = []
+
+//   firstArray.forEach((element) => {
+//     if (secondArray.includes(element)) {
+//       commonElements.push(element)
+//     }
+//   })
+
+//   return commonElements
+// }
+// console.log(getCommonElements([3, 6, 7, 2, 1], [7, 5, 8, 1]))
+
+
+
+///////////////////////////// Разновидности кода /////////////////////////////////
+
+/*                   ---  Императивное программирование  ---                  */
+
+/*Описывает процесс вычисления в виде заданной последовательности инструкций, изменяющих 
+состояние программы. Описание того, как что-то выполняется.
+ Императивный стиль программирования - это такой, который дает машине набор детальных инструкций 
+для выполнения задачи. Например цикл for, который предоставляет точные указания для итерации по 
+индексам массива.
+ Можно провести аналогию с рецептом приготовления блюда. Рецепт - это набор пошаговых инструкций 
+ для получения желаемого результата.
+ */
+
+/*                    ---  Декларативное программирование  ---               */
+ 
+/*Описывает то, что мы хотим получить в результате, а не как это сделать. Порядок выполнения 
+и способ достижения не важен.
+ Когда мы пишем HTML-код, то декларативно, при помощи тегов и атрибутов, описываем то, что хотим 
+получить в результате. Браузер читает этот код и сам выполняет все необходимые операции по созданию 
+HTML-элементов и помещению их на страницу.
+ Можно провести аналогию с меню ресторана. Это декларативный набор возможных к заказу блюд, детали 
+приготовления и подачи которых скрыты.
+ Декларативное описание задачи более наглядно и легче формулируется. Мы говорим, что хотим сделать, 
+ вызвав метод или функцию. Ее реализация, скорее всего использует императивный код, но он скрыт 
+ внутри и не усложняет понимание основного кода.
+ */
+
+/*                  ---   Императивный vs декларативный   ---                   */
+ 
+/*Рассмотрим разницу подходов на примере базовой операции фильтрации коллекции. Напишем код перебора
+и фильтрации массива чисел по какому-то критерию.
+*/
+
+// Императивный подход
+// const numbers = [1, 2, 3, 4, 5]
+// const filteredNumbers = []
+
+// for (let i = 0; i < numbers.length; i += 1) {
+//   if (numbers[i] > 3) {
+//     filteredNumbers.push(numbers[i])
+//   }
+// }
+// console.log(filteredNumbers) // [4, 5]
+
+/*Метод filter() скрывает в себе логику перебора коллекции и вызывает callback-функцию, которую мы 
+ему передаем для каждого элемента, возвращая массив элементов, подошедших под критерий.
+*/
+
+// Декларативный подход
+const numbers = [1, 2, 3, 4, 5]
+const filteredNumbers = numbers.filter(value => value > 3)
+console.log(filteredNumbers) // [4, 5]
 
 
 
