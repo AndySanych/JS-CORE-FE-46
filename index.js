@@ -4,4 +4,5 @@
 // import './js/module-2-1-arrays.js'
 // import './js/module-2-2-functions.js'
 // import './js/module-3-1.js'
-import './js/module-4-1-callback.js'
+// import './js/module-4-1-callback.js'
+import './js/module-4-2-iterating-array-methods.js'
