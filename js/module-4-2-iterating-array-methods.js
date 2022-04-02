@@ -1530,17 +1530,368 @@ callback-функция довольно большая.
 
 
 
-////////////////////////////////////// Цепочки методов /////////////////////////////
+////////////////////////////////////// Метод sort() /////////////////////////////
+
+/*Метод sort() сортирует элементы массива, но в отличии от остальных перебирающих методов, он сортирует исходный массив.
+
+   - Сортирует и изменяет исходный массив.
+   - Возвращает изменённый массив, то есть ссылку на отсортированный исходный.
+   - По умолчанию сортирует по возрастанию.
+   - Сортировка происходит путём приведения значений к строке и сравнения порядковых номеров в таблице Unicode.
+Такой массив чисел будет отсортирован по возврастанию.
+*/
+
+// const scores = [61, 19, 74, 35, 92, 56]
+// scores.sort()
+// console.log(scores) // [19, 35, 56, 61, 74, 92]
+
+/*Но, так как по умолчанию значения приводятся к строке, стандартная сортировка чисел работает необычно. 
+Поэтому в следующем упражнении мы рассмотрим как задавать свой порядок сортировки.
+*/
+
+// const scores = [27, 2, 41, 4, 7, 3, 75]
+// scores.sort()
+// console.log(scores) //[2, 27, 3, 4, 41, 7, 75]
+
+/*Массив строк сортируется по алфавиту.
+*/
+
+// const students = ["Вика", "Андрей", "Олег", "Юля", "Борис", "Катя"]
+// students.sort()
+// console.log(students) // ['Андрей', 'Борис', 'Вика', 'Катя', 'Олег', 'Юля']
+
+/*При этом порядковый номер заглавных букв меньше чем у прописных.
+*/
+
+// const letters = ["b", "B", "a", "A", "c", "C"]
+// letters.sort()
+// console.log(letters) //['A', 'B', 'C', 'a', 'b', 'c']
+
+/*Из-за того, что сортируется исходный массив, нарушается принцип чистоты функций и нельзя удобно сделать 
+несколько производных коллекций на базе исходной. Например, сделать коллекцию отсортированную по возрастанию, 
+а другую по убыванию. Поэтому перед сортировкой делают полную копию исходного массива и сортируют уже её.
+*/
+
+// const scores = [61, 19, 74, 35, 92, 56]
+// const ascendingScores = [...scores].sort()
+
+// console.log(ascendingScores) // [19, 35, 56, 61, 74, 92]
+// console.log(scores) //[61, 19, 74, 35, 92, 56]
+
+/*                                  Свой порядок сортировки чисел
+
+Для указания своего порядка сортировки методу sort(compareFunction) нужно передать коллбек-функцию 
+с двумя параметрами. Это функция сравнения (compare function), порядок сортировки зависит от её результата. 
+Метод sort() будет вызывать её для произвольных двух элементов.
+*/
+
+// массив.sort((a, b) => {
+//   // Тело коллбек-функции
+// })
+
+/*  • a - первый элемент для сравнения.
+    • b - второй элемент для сравнения.
+Если вызов compareFunction(a, b) возвращает любое отрицательное значение, то есть a меньше b, сортировка 
+поставит a перед b. Это сортировка по возрастанию.
+*/
+
+// const scores = [61, 19, 74, 35, 92, 56]
+// const ascendingScores = [...scores].sort((a, b) => a - b)
+
+// console.log(ascendingScores) // [19, 35, 56, 61, 74, 92]
+
+/*Если вызов compareFunction(a, b) возвращает любое положительное значение больше нуля, то есть b больше a, 
+сортировка поставит b перед a. Это сортировка по убыванию.
+*/
+
+// const scores = [61, 19, 74, 35, 92, 56]
+// const ascendingScores = [...scores].sort((a, b) => b - a)
+
+// console.log(ascendingScores) //[92, 74, 61, 56, 35, 19]
+
+/*Eсли вызов compareFunction(a, b) вернёт 0, сортировка оставит a и b неизменными по отношению друг к другу, 
+но отсортирует их по отношению ко всем другим элементам. Но вообще не важно, что возвращать, если их взаимный 
+порядок не имеет значения.
+*/
+
+/*==========================Свой порядок сортировки строк=============================
+
+Для сортировки строк в алфавитном порядке, по возрастанию или убыванию, используется метод строк localeCompare().
+*/
+
+// firstString.localeCompare(secondString)
+
+/*Он вызывается на строке которую нужно сравнить (firstString) с той, что передана ему как аргумент (secondString).
+*/
+
+// "a".localeCompare("b") // -1
+// "b".localeCompare("a") // 1
+// "a".localeCompare("a") // 0
+// "b".localeCompare("b") // 0
+
+/* • Возвращает отрицательное значение если firstString должна быть перед secondString.
+   • Возвращает положительное значение больше нуля если firstString должна быть после secondString.
+   • Если строки одинаковы, возвращается ноль.
+
+Это удобно использовать при сортировке строк, так как метод sort() ожидает такие же значения от коллбек-функции.
+*/
+
+// const students = ["Вика", "Андрей", "Олег", "Юля", "Борис", "Катя"]
+
+// const inAlphabetOrder = [...students].sort((a, b) => a.localeCompare(b))
+// console.log(inAlphabetOrder) //['Андрей', 'Борис', 'Вика', 'Катя', 'Олег', 'Юля']
+
+// const inReversedOrder = [...students].sort((a, b) => b.localeCompare(a))
+// console.log(inReversedOrder) //['Юля', 'Олег', 'Катя', 'Вика', 'Борис', 'Андрей']
+
+
+//============================= Сортировка объектов ==============================
+
+/*При работе с массивом объектов сортировка выполняется по числовому или строчному значению какого-то свойства. 
+Например, есть группа студентов с баллами за тест. Необходимо отсортировать массив объектов по возрастанию и 
+убыванию количества баллов, и по имени студента.
+*/
+
+// const students = [
+//   { name: "Манго", score: 83 },
+//   { name: "Поли", score: 59 },
+//   { name: "Аякс", score: 37 },
+//   { name: "Киви", score: 94 },
+// ]
+
+// const inAscendingScoreOrder = students.sort((firstStudent, secondStudetn) => firstStudent.score - secondStudetn.score)
+// console.log(inAscendingScoreOrder)
+
+// const inDescendingScoreOrder = students.sort((firstStudent, secondStudetn) => secondStudetn.score - firstStudent.score)
+// console.log(inDescendingScoreOrder)
+
+// const inAlphabeticalOrder = students.sort((firstStudent, secondStudetn) => firstStudent.name.localeCompare(secondStudetn.name))
+// console.log(inAlphabeticalOrder)
+
+// const inReversedAlphabeticalOrder = students.sort((firstStudent, secondStudetn) => secondStudetn.name.localeCompare(firstStudent.name))
+// console.log(inReversedAlphabeticalOrder)
+
+
+
+//////////////////////////////// EXAMPLE ////////////////////////////////////
+
+/*                             ---  1  ---                                 */
+
+/*Дополни код так, чтобы в переменной ascendingReleaseDates получилась отсортированная по возрастанию копия 
+массива releaseDates, а в переменной alphabeticalAuthors копия массива имён авторов authors отсортированная 
+в по алфавиту.
+*/
+
+// const releaseDates = [2016, 1967, 2008, 1984, 1973, 2012, 1997];
+// const authors = [
+//   "Tanith Lee",
+//   "Bernard Cornwell",
+//   "Robert Sheckley",
+//   "Fyodor Dostoevsky",
+// ]
+
+// const ascendingReleaseDates = [...releaseDates].sort()
+// console.log(ascendingReleaseDates)
+
+// const alphabeticalAuthors = [...authors].sort()
+// console.log(alphabeticalAuthors)
+
+
+/*                             ---  2  ---                                 */
+
+/*Онлайн бибилиотеке необходимо отображать книги сортированные по дате издания, по её возрастанию или убыванию. 
+Дополни код так, чтобы в переменной ascendingReleaseDates получилась отсортированная по возрастанию копия 
+массива releaseDates, а в переменной descendingReleaseDates копия отсортированная по убыванию.
+*/
+
+// const releaseDates = [2016, 1967, 2008, 1984, 1973, 2012, 1997]
+
+// const ascendingReleaseDates = [...releaseDates].sort((a, b) => a - b)
+// console.log(ascendingReleaseDates)
+
+// const descendingReleaseDates = [...releaseDates].sort((a, b) => b - a)
+// console.log(descendingReleaseDates)
+
+
+/*                             ---  3  ---                                 */
+
+/*Онлайн бибилиотеке необходимо отображать книги отсортированные по автору, в алфавитном и обратном алфавитном 
+порядке. Дополни код так, чтобы в переменной authorsInAlphabetOrder получилась отсортированная по алфавиту 
+копия массива authors, а в переменной authorsInReversedOrder копия отсортированная в обратном алфавитном порядке.
+*/
+
+// const authors = [
+//   "Tanith Lee",
+//   "Bernard Cornwell",
+//   "Robert Sheckley",
+//   "Fyodor Dostoevsky",
+//   "Howard Lovecraft",
+// ]
+
+// const authorsInAlphabetOrder = [...authors].sort((a, b) => a.localeCompare(b))
+// console.log(authorsInAlphabetOrder)
+
+// const authorsInReversedOrder = [...authors].sort((a, b) => b.localeCompare(a))
+// console.log(authorsInReversedOrder)
+
+
+/*                             ---  4  ---                                 */
+
+/*Дополни код так, чтобы:
+
+ • В переменной sortedByAuthorName получился массив книг отсортированный по имени автора в алфавитном порядке.
+ • В переменной sortedByReversedAuthorName получился массив книг отсортированный по имени автора в обратном 
+ алфавитном порядке.
+ • В переменной sortedByAscendingRating получился массив книг отсортированный по возрастанию рейтинга.
+ • В переменной sortedByDescentingRating получился массив книг отсортированный по убыванию рейтинга.
+ */
+
+//  const books = [
+//   {
+//     title: "The Last Kingdom",
+//     author: "Bernard Cornwell",
+//     rating: 8.38,
+//   },
+//   {
+//     title: "Beside Still Waters",
+//     author: "Robert Sheckley",
+//     rating: 8.51,
+//   },
+//   {
+//     title: "The Dream of a Ridiculous Man",
+//     author: "Fyodor Dostoevsky",
+//     rating: 7.75,
+//   },
+//   { title: "Redder Than Blood", author: "Tanith Lee", rating: 7.94 },
+//   { title: "Enemy of God", author: "Bernard Cornwell", rating: 8.67 },
+// ]
+
+// const sortedByAuthorName = [...books].sort((a, b) => a.author.localeCompare(b.author))
+// console.log(sortedByAuthorName)
+
+// const sortedByReversedAuthorName = [...books].sort((a, b) => b.author.localeCompare(a.author))
+// console.log(sortedByReversedAuthorName)
+
+// const sortedByAscendingRating = [...books].sort((a, b) => a.rating - b.rating)
+// console.log(sortedByAscendingRating)
+
+// const sortedByDescentingRating = [...books].sort((a, b) => b.rating - a.rating)
+// console.log(sortedByDescentingRating)
+
+
+/*                             ---  5  ---                                 */
+
+const users = [
+  {
+    name: "Moore Hensley",
+    email: "moorehensley@indexia.com",
+    eyeColor: "blue",
+    friends: ["Sharron Pace"],
+    isActive: false,
+    balance: 2811,
+    gender: "male"
+  },
+  {
+    name: "Sharlene Bush",
+    email: "sharlenebush@tubesys.com",
+    eyeColor: "blue",
+    friends: ["Briana Decker", "Sharron Pace"],
+    isActive: true,
+    balance: 3821,
+    gender: "female"
+  },
+  {
+    name: "Ross Vazquez",
+    email: "rossvazquez@xinware.com",
+    eyeColor: "green",
+    friends: ["Marilyn Mcintosh", "Padilla Garrison", "Naomi Buckner"],
+    isActive: false,
+    balance: 3793,
+    gender: "male"
+  },
+  {
+    name: "Elma Head",
+    email: "elmahead@omatom.com",
+    eyeColor: "green",
+    friends: ["Goldie Gentry", "Aisha Tran"],
+    isActive: true,
+    balance: 2278,
+    gender: "female"
+  },
+  {
+    name: "Carey Barr",
+    email: "careybarr@nurali.com",
+    eyeColor: "blue",
+    friends: ["Jordan Sampson", "Eddie Strong"],
+    isActive: true,
+    balance: 3951,
+    gender: "male"
+  },
+  {
+    name: "Blackburn Dotson",
+    email: "blackburndotson@furnigeer.com",
+    eyeColor: "brown",
+    friends: ["Jacklyn Lucas", "Linda Chapman"],
+    isActive: false,
+    balance: 1498,
+    gender: "male"
+  },
+  {
+    name: "Sheree Anthony",
+    email: "shereeanthony@kog.com",
+    eyeColor: "brown",
+    friends: ["Goldie Gentry", "Briana Decker"],
+    isActive: true,
+    balance: 2764,
+    gender: "female"
+  }
+]
+
+/*Дополни функцию sortByAscendingBalance(users) так, чтобы она возвращала массив пользователей отсортированный 
+по возрастанию их баланса (свойство balance).
+*/
+
+const sortByAscendingBalance = users => {
+   return [...users].sort((a, b) => a.balance - b.balance)
+}
+console.log(sortByAscendingBalance(users))
+
+
+/*                             ---  6  ---                                 */
+
+/*Дополни функцию sortByDescendingFriendCount(users) так, чтобы она возвращала массив пользователей 
+отсортированный по убыванию количества их друзей (свойство friends).
+*/
+
+const sortByDescendingFriendCount = users => {
+   return [...users].sort((a, b) => b.friends.length - a.friends.length)
+}
+console.log(sortByDescendingFriendCount(users))
+
+
+/*                             ---  7  ---                                 */
+
+/*Дополни функцию sortByName(users) так, чтобы она возвращала массив пользователей отсортированный по 
+их имени (свойство name) в алфавитном порядке.
+*/
+
+const sortByName = users => {
+  return [...users].sort((a, b) => a.name.localeCompare(b.name)) 
+}
+console.log(sortByName(users))
+
+
+////////////////////////////////////// Цепочки методов(ЧЕЙНИНГ, CHAINING) /////////////////////////////
 
 /*Есть массив объектов с именами, баллами и посещаемыми предметами каждого студента.
 */
 
-const students = [
-  { name: "Манго", score: 83, courses: ["математика", "физика"] },
-  { name: "Поли", score: 59, courses: ["информатика", "математика"] },
-  { name: "Аякс", score: 37, courses: ["физика", "биология"] },
-  { name: "Киви", score: 94, courses: ["литература", "информатика"] },
-]
+// const students = [
+//   { name: "Манго", score: 83, courses: ["математика", "физика"] },
+//   { name: "Поли", score: 59, courses: ["информатика", "математика"] },
+//   { name: "Аякс", score: 37, courses: ["физика", "биология"] },
+//   { name: "Киви", score: 94, courses: ["литература", "информатика"] },
+// ]
 
 /*Необходимо получить массив их имён отсортированный по возрастанию баллов за тест. Для этого мы отсортируем копию 
 массива методом sort(), после чего методом map() составим массив значений свойства name из сортированного массива.
@@ -1595,122 +1946,122 @@ const students = [
 
 /*                             ---  1  ---                                 */
 
-const books = [
-  {
-    title: "The Last Kingdom",
-    author: "Bernard Cornwell",
-    rating: 8.38,
-  },
-  {
-    title: "Beside Still Waters",
-    author: "Robert Sheckley",
-    rating: 8.51,
-  },
-  {
-    title: "The Dream of a Ridiculous Man",
-    author: "Fyodor Dostoevsky",
-    rating: 7.75,
-  },
-  { title: "Redder Than Blood", author: "Tanith Lee", rating: 7.94 },
-  {
-    title: "The Dreams in the Witch House",
-    author: "Howard Lovecraft",
-    rating: 8.67,
-  },
-]
+// const books = [
+//   {
+//     title: "The Last Kingdom",
+//     author: "Bernard Cornwell",
+//     rating: 8.38,
+//   },
+//   {
+//     title: "Beside Still Waters",
+//     author: "Robert Sheckley",
+//     rating: 8.51,
+//   },
+//   {
+//     title: "The Dream of a Ridiculous Man",
+//     author: "Fyodor Dostoevsky",
+//     rating: 7.75,
+//   },
+//   { title: "Redder Than Blood", author: "Tanith Lee", rating: 7.94 },
+//   {
+//     title: "The Dreams in the Witch House",
+//     author: "Howard Lovecraft",
+//     rating: 8.67,
+//   },
+// ]
 
-const MIN_BOOK_RATING = 8
+// const MIN_BOOK_RATING = 8
 
 /*Дополни код так, чтобы в переменной names получился массив имён авторов в алфавитном порядке, 
 рейтинг книг которых больше значения переменной MIN_BOOK_RATING.
 */
-const names = books
-  // .map(book => book.author)
-  .filter(book => book.rating > MIN_BOOK_RATING)
-  .map(book => book.author)
-  .sort((a, b) => a.localeCompare(b))
+// const names = books
+//   // .map(book => book.author)
+//   .filter(book => book.rating > MIN_BOOK_RATING)
+//   .map(book => book.author)
+//   .sort((a, b) => a.localeCompare(b))
 
 // console.log(names)
 
 
 /*                             ---  2  ---                                 */
 
-const users = [
-  {
-    name: "Moore Hensley",
-    email: "moorehensley@indexia.com",
-    eyeColor: "blue",
-    friends: ["Sharron Pace"],
-    isActive: false,
-    balance: 2811,
-    gender: "male"
-  },
-  {
-    name: "Sharlene Bush",
-    email: "sharlenebush@tubesys.com",
-    eyeColor: "blue",
-    friends: ["Briana Decker", "Sharron Pace"],
-    isActive: true,
-    balance: 3821,
-    gender: "female"
-  },
-  {
-    name: "Ross Vazquez",
-    email: "rossvazquez@xinware.com",
-    eyeColor: "green",
-    friends: ["Marilyn Mcintosh", "Padilla Garrison", "Naomi Buckner"],
-    isActive: false,
-    balance: 3793,
-    gender: "male"
-  },
-  {
-    name: "Elma Head",
-    email: "elmahead@omatom.com",
-    eyeColor: "green",
-    friends: ["Goldie Gentry", "Aisha Tran"],
-    isActive: true,
-    balance: 2278,
-    gender: "female"
-  },
-  {
-    name: "Carey Barr",
-    email: "careybarr@nurali.com",
-    eyeColor: "blue",
-    friends: ["Jordan Sampson", "Eddie Strong", "Adrian Cross"],
-    isActive: true,
-    balance: 3951,
-    gender: "male"
-  },
-  {
-    name: "Blackburn Dotson",
-    email: "blackburndotson@furnigeer.com",
-    eyeColor: "brown",
-    friends: ["Jacklyn Lucas", "Linda Chapman", "Adrian Cross", "Solomon Fokes"],
-    isActive: false,
-    balance: 1498,
-    gender: "male"
-  },
-  {
-    name: "Sheree Anthony",
-    email: "shereeanthony@kog.com",
-    eyeColor: "brown",
-    friends: ["Goldie Gentry", "Briana Decker"],
-    isActive: true,
-    balance: 2764,
-    gender: "female"
-  }
-]
+// const users = [
+//   {
+//     name: "Moore Hensley",
+//     email: "moorehensley@indexia.com",
+//     eyeColor: "blue",
+//     friends: ["Sharron Pace"],
+//     isActive: false,
+//     balance: 2811,
+//     gender: "male"
+//   },
+//   {
+//     name: "Sharlene Bush",
+//     email: "sharlenebush@tubesys.com",
+//     eyeColor: "blue",
+//     friends: ["Briana Decker", "Sharron Pace"],
+//     isActive: true,
+//     balance: 3821,
+//     gender: "female"
+//   },
+//   {
+//     name: "Ross Vazquez",
+//     email: "rossvazquez@xinware.com",
+//     eyeColor: "green",
+//     friends: ["Marilyn Mcintosh", "Padilla Garrison", "Naomi Buckner"],
+//     isActive: false,
+//     balance: 3793,
+//     gender: "male"
+//   },
+//   {
+//     name: "Elma Head",
+//     email: "elmahead@omatom.com",
+//     eyeColor: "green",
+//     friends: ["Goldie Gentry", "Aisha Tran"],
+//     isActive: true,
+//     balance: 2278,
+//     gender: "female"
+//   },
+//   {
+//     name: "Carey Barr",
+//     email: "careybarr@nurali.com",
+//     eyeColor: "blue",
+//     friends: ["Jordan Sampson", "Eddie Strong", "Adrian Cross"],
+//     isActive: true,
+//     balance: 3951,
+//     gender: "male"
+//   },
+//   {
+//     name: "Blackburn Dotson",
+//     email: "blackburndotson@furnigeer.com",
+//     eyeColor: "brown",
+//     friends: ["Jacklyn Lucas", "Linda Chapman", "Adrian Cross", "Solomon Fokes"],
+//     isActive: false,
+//     balance: 1498,
+//     gender: "male"
+//   },
+//   {
+//     name: "Sheree Anthony",
+//     email: "shereeanthony@kog.com",
+//     eyeColor: "brown",
+//     friends: ["Goldie Gentry", "Briana Decker"],
+//     isActive: true,
+//     balance: 2764,
+//     gender: "female"
+//   }
+// ]
 
 /*Дополни функцию getNamesSortedByFriendCount(users) так, чтобы она возвращала массив имён пользователей 
 отсортированный по возрастанию количества их друзей (свойство friends).
 */
 
-const getNamesSortedByFriendCount = users => {
+// const getNamesSortedByFriendCount = users => {
 
-  return [...users]
-    .sort((a, b) => a.friends.length - b.friends.length)
-    .map(user => user.name)
-}
+//   return [...users]
+//     .sort((a, b) => a.friends.length - b.friends.length)
+//     .map(user => user.name)
+// }
 
 // console.log(getNamesSortedByFriendCount(users))
 
@@ -1721,13 +2072,13 @@ const getNamesSortedByFriendCount = users => {
 отсортированный по алфавиту
 */
 
-const getSortedFriends = users => {
+// const getSortedFriends = users => {
    
-  return users
-    .flatMap(user => user.friends)
-    .filter((friend, index, arr) => arr.indexOf(friend) === index)
-    .sort((a, b) => a.localeCompare(b))
-}
+//   return users
+//     .flatMap(user => user.friends)
+//     .filter((friend, index, arr) => arr.indexOf(friend) === index)
+//     .sort((a, b) => a.localeCompare(b))
+// }
 
 // console.log(getSortedFriends(users))
 
@@ -1738,16 +2089,16 @@ const getSortedFriends = users => {
 (свойство balance), пол которых (свойство gender) совпадает со значением параметра gender.
 */
 
-const getTotalBalanceByGender = (users, gender) => {
+// const getTotalBalanceByGender = (users, gender) => {
    
-  return users
-    .filter(user => user.gender === gender)
-    .reduce((total, user) => {
-      return total + user.balance;
-   }, 0)
-}
-console.log(getTotalBalanceByGender(users, 'male'))
-console.log(getTotalBalanceByGender(users, 'female'))
+//   return users
+//     .filter(user => user.gender === gender)
+//     .reduce((total, user) => {
+//       return total + user.balance;
+//    }, 0)
+// }
+// console.log(getTotalBalanceByGender(users, 'male'))
+// console.log(getTotalBalanceByGender(users, 'female'))
 
 
 
