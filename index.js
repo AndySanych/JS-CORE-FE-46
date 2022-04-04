@@ -6,4 +6,5 @@
 // import './js/module-3-1.js'
 // import './js/module-4-1-callback.js'
 // import './js/module-4-2-iterating-array-methods.js'
-import './js/module-5-1-this.js'
+// import './js/module-5-1-this.js'
+import './js/module-5-2-oop-proto-classes.js'
