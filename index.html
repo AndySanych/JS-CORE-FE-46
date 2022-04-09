@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Dokument</title>
-    </head>
-    <body>
-        <h1>Hello! My favorite FE-46</h1>
-        <script src="./index.js" type="module"></script>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dokument</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+
+      button {
+        margin: 10px;
+        font-size: 16px;
+        font-family: inherit;
+        cursor: pointer;
+      }
+
+      .counter {
+        display: flex;
+        align-items: center;
+      }
+
+      .counter > p {
+        margin: 0;
+        font-size: 48px;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <h1>Hello! My favorite FE-46</h1> -->
+    <div class="counter">
+      <button class="js-decrement">Уменшить</button>
+      <p class="js-value">0</p>
+      <button class="js-increment">Увеличить</button>
+    </div>
+    <script src="./index.js" type="module"></script>
+  </body>
 </html>
