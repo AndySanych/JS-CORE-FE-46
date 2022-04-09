@@ -8,3 +8,4 @@
 // import './js/module-4-2-iterating-array-methods.js'
 // import './js/module-5-1-this.js'
 import './js/module-5-2-oop-proto-classes.js'
+import './js/counter.js'
