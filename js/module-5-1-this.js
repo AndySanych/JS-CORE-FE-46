@@ -277,22 +277,22 @@ JavaScript на старте обучения. Новички часто под�
 куда угодно и вызвать когда угодно.
 */
 
-function greet(clientName) {
-  return `${clientName}, добро пожаловать в «${this.service}».`
-}
+// function greet(clientName) {
+//   return `${clientName}, добро пожаловать в «${this.service}».`
+// }
 
-const steam = {
-  service: "Steam",
-};
-const steamGreeter = greet.bind(steam)
-console.log(steamGreeter("Манго")) 
-steamGreeter("Манго") // "Манго, добро пожаловать в «Steam»."
+// const steam = {
+//   service: "Steam",
+// };
+// const steamGreeter = greet.bind(steam)
+// console.log(steamGreeter("Манго"))
+// steamGreeter("Манго") // "Манго, добро пожаловать в «Steam»."
 
-const gmail = {
-  service: "Gmail",
-};
-const gmailGreeter = greet.bind(gmail)
-gmailGreeter("Поли") // "Поли, добро пожаловать в «Gmail»."
+// const gmail = {
+//   service: "Gmail",
+// };
+// const gmailGreeter = greet.bind(gmail)
+// gmailGreeter("Поли") // "Поли, добро пожаловать в «Gmail»."
 
 
 //========== bind() и методы объекта ==============
@@ -301,18 +301,18 @@ gmailGreeter("Поли") // "Поли, добро пожаловать в «Gmai
 это ссылка на метод, которая присваивается как значение параметра, вызываемого без объекта.
 */
 
-const customer = {
-  firstName: "Jacob",
-  lastName: "Mercer",
-  getFullName() {
-    return `${this.firstName} ${this.lastName}`
-  },
-}
+// const customer = {
+//   firstName: "Jacob",
+//   lastName: "Mercer",
+//   getFullName() {
+//     return `${this.firstName} ${this.lastName}`
+//   },
+// }
 
-function makeMessage(callback) {
+// function makeMessage(callback) {
   // callback() это вызов метода getFullName без объекта
-  console.log(`Обрабатываем заявку от ${callback()}.`)
-}
+  // console.log(`Обрабатываем заявку от ${callback()}.`)
+// }
 
 // makeMessage(customer.getFullName) // Будет ошибка при вызове функции
 
@@ -326,7 +326,7 @@ function makeMessage(callback) {
 // makeMessage(customer.getFullName) // Будет ошибка при вызове функции
 
 // ✅ Стало
-makeMessage(customer.getFullName.bind(customer)) // Обрабатываем заявку от Jacob Mercer.
+// makeMessage(customer.getFullName.bind(customer)) // Обрабатываем заявку от Jacob Mercer.
 
 
 
@@ -435,3 +435,297 @@ makeMessage(customer.getFullName.bind(customer)) // Обрабатываем з�
 // console.log(historyService.getOrdersLog())
 // console.log(historyService.getEmails())
 // console.log(historyService.getOrdersByEmail("jacob@hotmail.com"))
+
+
+
+//========================== Lesson Alexander Repeta ======================
+
+/*Контекст (this)
+  • Где и как была объявлена функция НЕ ИМЕЕТ НИКАКОГО ВЛИЯНИЯ на контекст.
+  • Контекст определяется В МОМЕНТ ВЫЗОВА ФУНКЦИИ, если он не привязан явно.
+*/
+
+/*Как метод объекта. В контексте объекта.*/
+
+// const user = {
+//   tag: 'Mango',
+//   showTag() {
+//     console.log('showTag -> this', this)
+//   }
+// }
+
+// user.showTag()
+
+/*Вызов без контекст
+В строгом режиме = undefined
+Не в строгом режиме = Window
+*/
+
+// const foo = function () {
+//   console.log('showTag -> this', this)
+// }
+
+// foo() // showTag -> this undefined
+
+/*Как метод объекта но объявлена как внешняя функция.
+В контексте объекта.
+*/
+
+// const showTag = function () {
+//   console.log('showTag -> this', this)
+//   console.log('showTag -> this.tag', this.tag)
+// }
+
+// showTag() // showTag -> this undefined
+          /*  module-5-1-this.js:476 Uncaught TypeError: Cannot read properties of undefined (reading 'tag')
+           at showTag (module-5-1-this.js:476:43)
+           at module-5-1-this.js:479:1*/
+
+// const user = {
+//   tag: 'Poly'
+// }
+
+// user.showUserTag = showTag
+// console.log('user', user) // user {tag: 'Poly', showUserTag: ƒ}
+
+// user.showUserTag() // showTag -> this {tag: 'Poly', showUserTag: ƒ}
+                      // showTag -> this.tag Poly
+
+/*Вызов без контекста, но объявлена как метод объекта*/
+
+// const user = {
+//   tag: 'Poly',
+//   showTag() {
+//     console.log('showTag -> this', this)
+//     console.log('showTag -> this.tag', this.tag)
+//   },
+// }
+
+// user.showTag() // showTag -> this {tag: 'Poly', showUserTag: ƒ}
+//                // showTag -> this.tag Poly
+
+// const outerShowTag = user.showTag
+
+// outerShowTag() // showTag -> this undefined
+              /*module-5-1-this.js:500 Uncaught TypeError: Cannot read properties of undefined (reading 'tag')
+                at showTag (module-5-1-this.js:500:45)
+                at module-5-1-this.js:509:1*/
+
+
+/*Контекст в callback-функциях*/
+
+// const user = {
+//   tag: 'Poly',
+//   showTag() {
+//     console.log('showTag -> this', this)
+//     console.log('showTag -> this.tag', this.tag)
+//   },
+// }
+
+// user.showTag()
+
+// const xyz = user.showTag
+
+// xyz()
+
+// const invokeAction = function (action) {
+//   console.log(action)
+
+//   action()
+// }
+
+// invokeAction(user.showTag) //showTag -> this undefined
+
+
+//============= EXAMPLE ================
+//================ 1 ===================
+
+// const fn = function () {
+//   console.log('fn -> this', this);
+// }
+
+// fn() // fn -> this undefined
+
+
+//================ 2 ===================
+// const book = {
+//   title: 'React for beginners',
+//   showThis() {
+//     console.log('showThis -> this', this)
+//   },
+//   showTitle() {
+//     console.log('showTitle -> this.title', this.title)
+//   },
+// }
+
+// book.showThis() // showThis -> this {title: 'React for beginners', showThis: ƒ, showTitle: ƒ}
+
+// const outerShowThis = book.showThis
+// outerShowThis() //showThis -> this undefined
+
+// const outerShowTitle = book.showTitle
+// outerShowTitle()
+                  /*module-5-1-this.js:557 Uncaught TypeError: Cannot read properties of undefined (reading 'title')
+                   t showTitle (module-5-1-this.js:557:49)
+                   at module-5-1-this.js:567:1*/
+
+
+//================ 3 ===================
+// const makeChangeColor = function () {
+//   const changeColor = function (color) {
+//     console.log('changeColor -> this', this)
+//     this.color = color
+//   }
+
+//   // changeColor() // changeColor -> this undefined
+
+//   const sweater = {
+//     color: 'teal',
+//   }
+
+//   sweater.updateColor = changeColor
+  
+//   // sweater.updateColor('red') // changeColor -> this {color: 'teal', updateColor: ƒ}
+
+//   return sweater.updateColor
+// }
+
+// const swapColor = makeChangeColor()
+
+// swapColor('blue') // changeColor -> this undefined
+
+
+//================ 4 ===================
+// const makeChangeColor = function () {
+//   const changeColor = function (color) {
+//     console.log('changeColor -> this', this)
+//     this.color = color
+//   }
+
+//   return changeColor
+// }
+
+// const updateColor = makeChangeColor()
+// updateColor('yellow') // changeColor -> this undefined
+
+// const hat = {
+//   color: 'blue',
+//   updateColor,
+// }
+
+// console.log(hat.updateColor) // ƒ (color) {console.log('changeColor -> this', this)this.color = color}
+  
+// hat.updateColor('orange') // changeColor -> this {color: 'blue', updateColor: ƒ}
+
+//================ 5 ===================
+// const counter = {
+//   value: 0,
+//   increment(value) {
+//     console.log('increment -> this', this)
+//     this.value += value
+//   },
+//   decrement(value) {
+//     console.log('decrement -> this', this)
+//     this.value -= value
+//   },
+  
+// }
+
+// const updateCounter = function (value, operation) {
+//   operation(value)
+// }
+
+// // updateCounter(10, counter.increment)
+// updateCounter(5, counter.decrement)
+
+
+
+
+
+
+//============== call & apply ====================
+
+// const showThis = function (a, b, arr) {
+//   console.log(a, b, arr)
+//   console.log('showthis -> this', this)
+// }
+
+// showThis()
+
+// const objA = {
+//   a: 5,
+//   b:10,
+// }
+
+// showThis.call(objA, 10, 20, [30, 40, 50])
+// showThis.apply(objA, [1, 2, [3, 4, 5]])
+
+// const objB = {
+//   x: 777,
+//   y: 25,
+// }
+
+// showThis.call(objB, 1, 2, 3, 4, 5)
+// showThis.apply(objB, [10, 20, 30, 40, 50])
+// showThis()
+
+
+const changeColor = function (color) {
+  console.log('changeColor -> this', this)
+  this.color = color
+}
+
+const hat = {
+  color: 'black',
+}
+
+// changeColor.call(hat, 'orange')
+// changeColor.apply(hat, ['red'])
+// console.log(hat)
+
+const sweater = {
+  color: 'green',
+}
+
+// changeColor.call(sweater, 'blue')
+// console.log(sweater)
+
+
+
+//============== bind ================
+
+const changeHatColor = changeColor.bind(hat)
+const changeSweaterColor = changeColor.bind(sweater)
+
+// changeColor()
+// changeHatColor('yellow')
+// console.log(hat)
+
+// changeSweaterColor('red')
+// console.log(sweater)
+
+// решение проблемы с counter
+
+//  const counter = {
+//   value: 0,
+//   increment(value) {
+//     console.log('increment -> this', this)
+//     this.value += value
+//   },
+//   decrement(value) {
+//     console.log('decrement -> this', this)
+//     this.value -= value
+//   },
+  
+// }
+
+// const updateCounter = function (value, operation) {
+//   operation(value)
+// }
+
+// updateCounter(10, counter.increment.bind(counter))
+// updateCounter(5, counter.decrement.bind(counter))
+
+// console.log(counter)
+
+
