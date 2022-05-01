@@ -1,0 +1,279 @@
+body {
+  font-family: sans-serif;
+  margin: 24px;
+}
+
+.usernames li {
+  padding: 8px;
+  border:  2px dashed tomato;
+  text-transform: uppercase;
+}
+
+.usernames li:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.accent {
+  color: tomato;
+  text-decoration: underline;
+}
+/* module-6-1 innerHTML Single-type (template) markup */
+body {
+  padding: 16px;
+}
+
+.list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.list-item {
+  padding: 8px;
+  border-width: 2px;
+  border-style: dashed;
+}
+
+.list-item:nth-child(even) {
+  border-color: tomato;
+}
+
+.list-item:nth-child(odd) {
+  border-color: blueviolet;
+}
+
+.list-item:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+/* module-6-1 innerHTML add */
+body {
+  padding: 16px;
+}
+
+.article {
+  max-width: 320px;
+}
+
+.article-text {
+  color: tomato;
+}
+
+/* module-6-1 insertAdjacentHTML() method */
+body {
+  padding: 16px;
+}
+
+.list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-width: 2px;
+  border-style: dashed;
+}
+
+.list-item.new::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background-color: green;
+}
+
+.list-item:nth-child(even) {
+  border-color: tomato;
+}
+
+.list-item:nth-child(odd) {
+  border-color: blueviolet;
+}
+
+.list-item:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+/* module-6-2 addEventListener() method */
+.my-button {
+  width: 100px;
+  height: 50px;
+  background-color: green;
+  border-radius: 25px;
+  font-size: x-large;
+}
+
+/* body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 1rem;
+  text-align: center;
+} */
+
+/* module-6-2 keyword this */
+/* .js-btn {
+  width: 100px;
+  height: 50px;
+  background-color: green;
+  border-radius: 15px;
+  font-size: medium;
+} */
+
+
+/* <!-- module-6-2 event object --> */
+/* body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-form input {
+  margin-bottom: 16px;
+  padding: 8px 12px;
+}
+
+.register-form button {
+  padding: 12px;
+} */
+
+/* module-6-2 key and code properties */
+/* body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.log-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.log-item {
+  position: relative;
+  padding: 8px;
+  border: 1px dashed #2a2a2a;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: monospace;
+}
+
+.log-item > .chip {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 20px;
+  height: 20px;
+  background-color: green;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.log-list li:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+button {
+  display: inline-flex;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: inherit;
+  text-transform: uppercase;
+} */
+
+/* module-6-2 form element events */
+/* body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 32px;
+} */
+
+
+/* module-6-2 change event */
+/* body {
+  margin: 16px;
+}
+
+select {
+  padding: 4px;
+} */
+
+
+/* module-6-2 input event */
+/* body {
+  margin: 16px;
+  line-height: 1.5;
+  font-family: sans-serif;
+  letter-spacing: 0.5px;
+}
+
+p {
+  overflow-wrap: anywhere;
+}
+
+input {
+  width: 100%;
+  max-width: 320px;
+  padding: 8px;
+  font: inherit;
+  letter-spacing: inherit;
+} */
+
+
+/* module-6-2 focus and blur events */
+body {
+  margin: 16px;
+  line-height: 1.5;
+  font-family: sans-serif;
+  letter-spacing: 0.5px;
+}
+
+input {
+  width: 100%;
+  max-width: 320px;
+  padding: 8px;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+button {
+  display: inline-flex;
+  padding: 4px;
+  margin-right: 2px;
+  margin-left: 2px;
+}
